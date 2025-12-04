@@ -16,7 +16,7 @@ date_default_timezone_set('Asia/Jakarta');
 $today = date('Y-m-d');
 $h_min_3 = date('Y-m-d', strtotime($today . ' + 3 days'));
 
-echo "<h2>Debug Mode: Port 587 (TLS)</h2>";
+echo "<h2>Debug Mode: Port 587 (TLS) + Fix IPv6</h2>";
 echo "Server Time: $today<br>";
 echo "Target Deadline: $h_min_3<br><hr>";
 
@@ -34,22 +34,23 @@ if (count($tasks) > 0) {
     $mail = new PHPMailer(true);
 
     try {
-        // --- SETTING PENTING AGAR TIDAK STUCK ---
-        $mail->SMTPDebug = SMTP::DEBUG_CONNECTION; // Level 3: Tampilkan detail koneksi
-        $mail->Debugoutput = 'html'; // Format log biar rapi di browser
+        $mail->SMTPDebug = SMTP::DEBUG_CONNECTION; 
+        $mail->Debugoutput = 'html'; 
         
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com';
+        
+        // --- FIX UTAMA: PAKSA IPV4 ---
+        // Kita ubah 'smtp.gmail.com' menjadi IP Address angka (misal: 142.250.x.x)
+        // Ini mencegah server Railway mencoba konek via IPv6 yang sering macet.
+        $mail->Host       = gethostbyname('smtp.gmail.com'); 
+        
         $mail->SMTPAuth   = true;
         $mail->Username   = getenv('SMTP_EMAIL'); 
         $mail->Password   = getenv('SMTP_PASSWORD'); 
         
-        // GANTI KE PORT 587 (STARTTLS)
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
         $mail->Port       = 587;
 
-        // OPSI TAMBAHAN: Matikan IPv6 dan Verifikasi SSL yang ketat
-        // Ini sering menjadi solusi jika koneksi 'hanging' di container docker/railway
         $mail->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
@@ -73,8 +74,8 @@ if (count($tasks) > 0) {
             $mail->Body = $body;
             $mail->AltBody = strip_tags($body);
 
-            echo "⏳ Sedang menghubungi Gmail untuk: " . $task['email'] . "...<br>";
-            flush(); // Paksa browser menampilkan teks ini segera
+            echo "⏳ Sedang menghubungi Gmail (via IP " . $mail->Host . ") untuk: " . $task['email'] . "...<br>";
+            flush(); 
             
             $mail->send();
             echo "✅ <b>BERHASIL!</b> Email terkirim.<br><br>";
