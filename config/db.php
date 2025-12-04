@@ -1,15 +1,30 @@
 <?php
-// Gunakan getenv() untuk mengambil data dari Railway
-// Jika di localhost (tidak ada env), gunakan fallback ke default XAMPP
-$host = getenv('DB_HOST') ? getenv('DB_HOST') : 'localhost';
-$user = getenv('DB_USER') ? getenv('DB_USER') : 'root';
-$pass = getenv('DB_PASSWORD') ? getenv('DB_PASSWORD') : ''; // password kosong di xampp
-$db   = getenv('DB_NAME') ? getenv('DB_NAME') : 'todolist_db';
-$port = getenv('DB_PORT') ? getenv('DB_PORT') : 3307;
+// db.php
+// Koneksi Khusus PostgreSQL untuk Railway
 
-$conn = mysqli_connect($host, $user, $pass, $db, $port);
+// Ambil variabel environment dari Railway (atau default ke localhost jika testing lokal)
+// Railway menyediakan variabel khusus untuk Postgres: PGHOST, PGUSER, PGDATABASE, PGPASSWORD, PGPORT
+$host = getenv('PGHOST') ? getenv('PGHOST') : 'localhost';
+$port = getenv('PGPORT') ? getenv('PGPORT') : '5432';
+$db   = getenv('PGDATABASE') ? getenv('PGDATABASE') : 'nama_db_lokal';
+$user = getenv('PGUSER') ? getenv('PGUSER') : 'postgres';
+$pass = getenv('PGPASSWORD') ? getenv('PGPASSWORD') : 'password_lokal';
 
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+try {
+    // String koneksi (DSN) untuk PostgreSQL
+    $dsn = "pgsql:host=$host;port=$port;dbname=$db";
+    
+    // Membuat koneksi PDO
+    $conn = new PDO($dsn, $user, $pass);
+    
+    // Set mode error agar jika ada masalah, PHP akan memberitahu
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // (Opsional) Set fetch mode default ke Associative Array
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    // Jika koneksi gagal, tampilkan pesan error
+    die("Koneksi Database Gagal: " . $e->getMessage());
 }
 ?>
