@@ -44,7 +44,7 @@ Aplikasi ini memiliki fitur-fitur unggulan sebagai berikut:
 ### 2.2 Arsitektur Sistem
 Aplikasi dibangun dengan struktur yang terorganisir untuk memudahkan pemeliharaan:
 
-<img width="292" height="357" alt="image" src="https://github.com/user-attachments/assets/e40c00aa-03fc-428e-8fe8-59f6bf71bc30" /><br>
+<img width="301" height="580" alt="image" src="https://github.com/user-attachments/assets/7ba3786a-dc8c-4bbc-99c3-83dc6d5b6c4c" /><br>
 * **Backend:** PHP Native (Logika bisnis & API).
 * **Frontend:** HTML, CSS, JavaScript.
 * **Database:** MySQL.
