@@ -1,11 +1,16 @@
-# LAPORAN PROYEK PENGEMBANGAN PERANGKAT LUNAK
+<h1 align="center">LAPORAN PROYEK PEMROGRAMMAN WEB</h1>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0d261a49-ae0b-405e-8cef-12b33a7571cb" width="500" alt="Logo ITS">
+</p>
+
 
 **JUDUL PROYEK:**
 Rancang Bangun Aplikasi Manajemen Tugas "StudyPlanner" Berbasis Web dengan Integrasi Google Calendar dan Notifikasi Otomatis
 
-**TIM PENGEMBANG:**
-1. **Akmal** (Backend & Logic)
-2. **Reza** (Frontend & UI)
+**TIM PENGEMBANG:**<br>
+**Muhammad Hilbran Akmal Abrar (5025241052)** [Backend & Logic]<br>
+**Reza Afzaal Faizullah Taqy (5025241051** [Frontend & UI]
 
 ---
 
