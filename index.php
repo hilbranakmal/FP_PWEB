@@ -29,7 +29,6 @@ $done_tasks = $stmt->fetchAll();
     </div>
 </div>
 
-<!-- Tabs Navigasi -->
 <ul class="nav nav-pills mb-4 justify-content-center" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
         <button class="nav-link active rounded-pill px-4" id="pills-ongoing-tab" data-bs-toggle="pill" data-bs-target="#pills-ongoing" type="button" role="tab">Ongoing (<?= count($ongoing_tasks) ?>)</button>
@@ -40,7 +39,7 @@ $done_tasks = $stmt->fetchAll();
 </ul>
 
 <div class="tab-content" id="pills-tabContent">
-    <!-- ONGOING TASKS -->
+
     <div class="tab-pane fade show active" id="pills-ongoing" role="tabpanel">
         <div class="row">
             <?php if(empty($ongoing_tasks)): ?>
@@ -75,12 +74,24 @@ $done_tasks = $stmt->fetchAll();
                         </div>
 
                         <div class="d-flex gap-2 mt-4">
-                            <a href="api/task_action.php?toggle_id=<?= $task['id'] ?>" class="btn btn-outline-success btn-sm w-100 rounded-pill">
-                                <i class="fas fa-check me-1"></i> Selesai
+                            <a href="#" class="btn btn-outline-primary btn-sm rounded-pill" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#editTaskModal"
+                                data-id="<?= $task['id'] ?>"
+                                data-name="<?= htmlspecialchars($task['task_name']) ?>"
+                                data-urgency="<?= $task['urgency'] ?>"
+                                data-deadline="<?= $task['deadline'] ?>"
+                                data-routine="<?= $task['is_routine'] ?>"
+                                data-interval="<?= $task['routine_interval'] ?>">
+                                    <i class="fas fa-edit me-1"></i> Edit
                             </a>
-                            <a href="api/task_action.php?delete_id=<?= $task['id'] ?>" class="btn btn-outline-danger btn-sm w-100 rounded-pill">
-                                <i class="fas fa-trash"></i>
-                            </a>
+    
+    <a href="api/task_action.php?toggle_id=<?= $task['id'] ?>" class="btn btn-outline-success btn-sm rounded-pill">
+        <i class="fas fa-check me-1"></i> Selesai
+    </a>
+    <a href="api/task_action.php?delete_id=<?= $task['id'] ?>" class="btn btn-outline-danger btn-sm rounded-pill">
+        <i class="fas fa-trash"></i>
+    </a>
                         </div>
                     </div>
                 </div>
@@ -89,7 +100,6 @@ $done_tasks = $stmt->fetchAll();
         </div>
     </div>
 
-    <!-- DONE TASKS -->
     <div class="tab-pane fade" id="pills-done" role="tabpanel">
         <div class="row">
             <?php foreach($done_tasks as $task): ?>
@@ -153,6 +163,55 @@ $done_tasks = $stmt->fetchAll();
                     </div>
 
                     <button type="submit" name="add_task" class="btn btn-primary-custom w-100">Simpan Tugas</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editTaskModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title brand-font">Edit Tugas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="api/task_action.php" method="POST">
+                    <input type="hidden" name="task_id" id="edit_task_id">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nama Tugas</label>
+                        <input type="text" name="task_name" id="edit_task_name" class="form-control" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Prioritas</label>
+                            <select name="urgency" id="edit_urgency" class="form-select form-control">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Deadline</label>
+                            <input type="date" name="deadline" id="edit_deadline" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 bg-light p-3 rounded-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="edit_isRoutineCheck" name="is_routine">
+                            <label class="form-check-label" for="edit_isRoutineCheck">Jadikan Tugas Rutinan?</label>
+                        </div>
+                        <div id="edit_routineOptions" class="mt-3 d-none">
+                            <label class="form-label small text-muted">Ulangi setiap (hari):</label>
+                            <input type="number" name="routine_interval" id="edit_routine_interval" class="form-control" min="1">
+                        </div>
+                    </div>
+
+                    <button type="submit" name="update_task" class="btn btn-primary-custom w-100">Update Tugas</button>
                 </form>
             </div>
         </div>

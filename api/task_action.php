@@ -43,4 +43,20 @@ if (isset($_GET['delete_id'])) {
     $stmt->execute([$id, $user_id]);
     header("Location: ../index.php?success=Tugas dihapus");
 }
+
+if (isset($_POST['update_task'])) {
+    $id = $_POST['task_id'];
+    $task_name = $_POST['task_name'];
+    $urgency = $_POST['urgency'];
+    $deadline = $_POST['deadline'];
+    $is_routine = isset($_POST['is_routine']) ? 1 : 0;
+    $routine_interval = $is_routine ? $_POST['routine_interval'] : 0;
+
+    $sql = "UPDATE tasks SET task_name = ?, urgency = ?, deadline = ?, is_routine = ?, routine_interval = ? WHERE id = ? AND user_id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$task_name, $urgency, $deadline, $is_routine, $routine_interval, $id, $user_id]);
+
+    
+    header("Location: ../index.php?success=Tugas berhasil diupdate");
+}
 ?>
