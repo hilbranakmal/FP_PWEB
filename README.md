@@ -36,7 +36,6 @@ Aplikasi ini memiliki fitur-fitur unggulan sebagai berikut:
 * **Manajemen Pengguna (Auth):** Pendaftaran dan Login pengguna yang aman.
 * **Manajemen Tugas (CRUD):** Pengguna dapat membuat, membaca, mengedit, dan menghapus tugas.
 * **Sistem Prioritas:** Pengkategorian tugas berdasarkan tingkat urgensi (*Hard/High*, *Medium*, *Normal*).
-* **Reminder System (H-3):** Sistem secara otomatis mengecek tanggal tugas dan mengirimkan notifikasi email jika *deadline* tersisa 3 hari.
 * **Recurring Tasks (Tugas Rutinan):** Fitur khusus di mana tugas tidak hilang setelah selesai, melainkan otomatis dijadwalkan ulang untuk siklus berikutnya.
 * **Integrasi Google Calendar API:** Sinkronisasi otomatis antara tugas di aplikasi dengan Google Calendar pengguna.
 
