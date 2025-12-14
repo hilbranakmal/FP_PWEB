@@ -9,8 +9,8 @@
 Rancang Bangun Aplikasi Manajemen Tugas "StudyPlanner" Berbasis Web dengan Integrasi Google Calendar dan Notifikasi Otomatis
 
 **TIM PENGEMBANG:**<br>
-**Muhammad Hilbran Akmal Abrar (5025241052)** [Backend & Logic]<br>
-**Reza Afzaal Faizullah Taqy (5025241051** [Frontend & UI]
+**Muhammad Hilbran Akmal Abrar (5025241052)** [Frontend & UI]<br>
+**Reza Afzaal Faizullah Taqy (5025241051** [Backend & Logic]
 
 ---
 
@@ -20,13 +20,12 @@ Rancang Bangun Aplikasi Manajemen Tugas "StudyPlanner" Berbasis Web dengan Integ
 Dalam dunia akademik dan profesional, manajemen waktu adalah kunci produktivitas. Seringkali, mahasiswa atau pekerja kesulitan melacak tenggat waktu (*deadline*) tugas, membedakan prioritas, dan mengatur tugas yang bersifat rutin. Meskipun banyak aplikasi *to-do list* tersedia, dibutuhkan solusi yang dapat terintegrasi langsung dengan kalender digital dan memberikan pengingat proaktif melalui email. Oleh karena itu, dikembangkanlah **"StudyPlanner"**, sebuah aplikasi berbasis web yang dirancang untuk mengatasi masalah manajemen tugas tersebut.
 
 ### 1.2 Rumusan Masalah
-Bagaimana membangun aplikasi *To-Do List* yang tidak hanya mencatat tugas, tetapi juga memiliki fitur pengingat cerdas, dukungan tugas rutin (*recurring*), dan integrasi kalender eksternal?
+Bagaimana membangun aplikasi *To-Do List* yang tidak hanya mencatat tugas, tetapi juga memiliki fitur tugas rutin (*recurring*), dan integrasi kalender eksternal?
 
 ### 1.3 Tujuan
 1. Menyediakan *platform* pencatatan tugas yang terstruktur dengan sistem prioritas.
-2. Mengimplementasikan fitur notifikasi via email untuk tugas yang mendekati *deadline* (H-3).
-3. Membuat logika tugas berulang (*recurring tasks*) yang otomatis diperbarui.
-4. Mengintegrasikan sistem dengan Google Calendar API untuk sinkronisasi jadwal.
+2. Membuat logika tugas berulang (*recurring tasks*) yang otomatis diperbarui.
+3. Mengintegrasikan sistem dengan Google Calendar API untuk sinkronisasi jadwal.
 
 ---
 
@@ -44,7 +43,7 @@ Aplikasi ini memiliki fitur-fitur unggulan sebagai berikut:
 ### 2.2 Arsitektur Sistem
 Aplikasi dibangun dengan struktur yang terorganisir untuk memudahkan pemeliharaan:
 
-<img width="301" height="580" alt="image" src="https://github.com/user-attachments/assets/7ba3786a-dc8c-4bbc-99c3-83dc6d5b6c4c" /><br>
+<img width="293" height="652" alt="image" src="https://github.com/user-attachments/assets/30a262ab-31f1-495d-a4e3-921abd6c401e" /><br>
 * **Backend:** PHP Native (Logika bisnis & API).
 * **Frontend:** HTML, CSS, JavaScript.
 * **Database:** MySQL.
@@ -52,6 +51,7 @@ Aplikasi dibangun dengan struktur yang terorganisir untuk memudahkan pemeliharaa
 * **Struktur Direktori:**
     * `/api`: Endpoint integrasi kalender & fungsi asinkron.
     * `/config`: Koneksi database (`db.php`).
+    * `/assets`: File foto logo (`icon.png logo.png`).
     * `/includes`: Komponen UI modular (`header.php`, `footer.php`).
     * `/public`: Aset statis (CSS, JS, Images).
 
@@ -61,8 +61,7 @@ Aplikasi dibangun dengan struktur yang terorganisir untuk memudahkan pemeliharaa
 
 ### 3.1 Implementasi Antarmuka (*User Interface*)
 Antarmuka pengguna didesain dengan pendekatan minimalis (*clean design*).
-
-![WhatsApp Image 2025-12-06 at 00 19 07_11455650](https://github.com/user-attachments/assets/40dc0842-435b-4a47-a853-23688c039282)
+<img width="1863" height="1014" alt="image" src="https://github.com/user-attachments/assets/d45ad9b0-efb3-48c2-b750-ee0d67339dd4" />
 * **Dashboard:** Menampilkan ringkasan tugas dalam status *Ongoing* dan *Selesai*.
 * **Kartu Tugas:** Tugas ditampilkan dalam bentuk kartu yang memuat Judul, Deadline, dan Label Prioritas (misal: *High Priority* berwarna merah).
 
@@ -91,9 +90,12 @@ Aplikasi telah berhasil di-*deploy* dan dapat diakses secara *online*.
 | Fitur | Hasil Tes | Status |
 | :--- | :--- | :---: |
 | **Pendaftaran Akun** | Data user tersimpan di DB | ✅ Berhasil |
-| **Prioritas Tugas** | Label muncul sesuai input (Hard/Medium) | ✅ Berhasil |
-| **Email Reminder** | Email masuk saat H-3 Deadline | ✅ Berhasil |
-| **Google Calendar** | Event muncul otomatis di Kalender Google | ✅ Berhasil |
+| **Login Akun** | User bisa login menggunakan email yang digunakan saat pendaftaran | ✅ Berhasil |
+| **Menambahkan Tugas** | Tugas muncul di dashboard dengan desain kartu | ✅ Berhasil |
+| **Prioritas Tugas** | Label muncul sesuai input (Hard/Medium/Low) | ✅ Berhasil |
+| **Deadline Tugas** | Deadline muncul sesuai input | ✅ Berhasil |
+| **Update Tugas** | Tugas bisa diubah setelah ditambahkan | ✅ Berhasil |
+| **Menghapus Tugas** | Tugas yang dirasa tidak perlu bisa dihapus oleh user | ✅ Berhasil |
 
 ---
 
